@@ -212,10 +212,10 @@ module.exports = (function () {
   walkStrategies.pre = function depthFirstPreOrder(callback, context) {
     var i, childCount, keepGoing;
     keepGoing = callback.call(context, this);
+    if (keepGoing === false) {
+      return false;
+    }
     for (i = 0, childCount = this.children.length; i < childCount; i++) {
-      if (keepGoing === false) {
-        return false;
-      }
       keepGoing = depthFirstPreOrder.call(this.children[i], callback, context);
     }
     return keepGoing;
